@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .deped-blue { background-color: #0033a0; }
         .deped-red { background-color: #c8102e; }
@@ -42,7 +42,7 @@
     <header class="bg-white border-b py-16 px-4 text-center">
         <h1 class="text-4xl font-bold text-slate-900 mb-4">How can we help you today?</h1>
         <p class="text-slate-500 mb-8 max-w-2xl mx-auto">Your digital HR companion from appointment to retirement. Find guidelines, checklists, and forms instantly.</p>
-       
+        
         <div class="max-w-2xl mx-auto relative">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <i class="fa-solid fa-search text-gray-400"></i>
@@ -54,7 +54,7 @@
 
     <main id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-           
+            
             <div onclick="loadModule('newlyHired')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-blue-500 transition group">
                 <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
                     <i class="fa-solid fa-user-plus"></i>
@@ -64,7 +64,7 @@
                 <span class="text-blue-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
             </div>
 
-            <div onclick="loadModule('promotion')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-blue-500 transition group">
+            <div onclick="loadModule('promotion')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-green-500 transition group">
                 <div class="w-12 h-12 bg-green-100 text-green-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-green-600 group-hover:text-white transition">
                     <i class="fa-solid fa-arrow-trend-up"></i>
                 </div>
@@ -73,7 +73,7 @@
                 <span class="text-green-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
             </div>
 
-            <div onclick="loadModule('leave')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-blue-500 transition group">
+            <div onclick="loadModule('leave')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-purple-500 transition group">
                 <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-purple-600 group-hover:text-white transition">
                     <i class="fa-solid fa-calendar-check"></i>
                 </div>
@@ -82,7 +82,7 @@
                 <span class="text-purple-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
             </div>
 
-            <div onclick="loadModule('transfer')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-blue-500 transition group">
+            <div onclick="loadModule('transfer')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-orange-500 transition group">
                 <div class="w-12 h-12 bg-orange-100 text-orange-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-orange-600 group-hover:text-white transition">
                     <i class="fa-solid fa-right-left"></i>
                 </div>
@@ -91,7 +91,7 @@
                 <span class="text-orange-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
             </div>
 
-            <div onclick="loadModule('retirement')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-blue-500 transition group">
+            <div onclick="loadModule('retirement')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-red-500 transition group">
                 <div class="w-12 h-12 bg-red-100 text-red-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
                     <i class="fa-solid fa-user-clock"></i>
                 </div>
@@ -99,7 +99,7 @@
                 <p class="text-slate-500 text-sm mb-4">Optional and mandatory retirement timelines, GSIS processing, and clearances.</p>
                 <span class="text-red-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
             </div>
-           
+            
         </div>
     </main>
 
@@ -109,7 +109,7 @@
                 <h2 id="module-title" class="text-2xl font-bold text-slate-800">Module Title</h2>
                 <button onclick="closeModule()" class="text-slate-400 hover:text-red-500 transition">
                     <i class="fa-solid fa-times text-xl"></i>
-                </button>
+                </</button>
             </div>
             <div id="module-content" class="prose max-w-none text-slate-600">
                 </div>
@@ -121,26 +121,74 @@
     </footer>
 
     <script>
-        // Database of Module Content (Can be expanded later or fetched from a backend)
+        // Global Array state to allow UNLIMITED uploading of forms asynchronously 
+        let uploadedForms = [
+            { id: 1, name: "Appointment_Checklist_Template.pdf", size: "245 KB" },
+            { id: 2, name: "Oath_of_Office_Form.docx", size: "120 KB" },
+            { id: 3, name: "Payroll_Inclusion_Form.pdf", size: "310 KB" },
+            { id: 4, name: "GSIS_Membership_Form.pdf", size: "1.2 MB" },
+            { id: 5, name: "PhilHealth_PMRF.pdf", size: "450 KB" },
+            { id: 6, name: "Landbank_Enrollment_Form.pdf", size: "185 KB" },
+            { id: 7, name: "SALN_Form_2026.pdf", size: "520 KB" }
+        ];
+
+        // Database of Module Content
         const moduleData = {
             newlyHired: {
-                title: "Newly Hired Teacher (Entry to Service)",
-                content: `
-                    <h3 class="text-lg font-bold text-slate-800 mb-3">Appointment Checklist</h3>
-                    <p class="mb-4">Welcome to DepEd! Keep track of your onboarding requirements below. Check the boxes as you complete them to save your progress.</p>
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
-                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-blue-600 rounded"><span>Medical Requirements (CS Form 211)</span></label>
-                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-blue-600 rounded"><span>Oath of Office</span></label>
-                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-blue-600 rounded"><span>Personal Data Sheet (PDS)</span></label>
-                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-blue-600 rounded"><span>Landbank ATM Payroll Account</span></label>
-                        <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-blue-600 rounded"><span>Initial SALN Submission</span></label>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">Frequently Asked Questions</h3>
-                    <div class="border-l-4 border-blue-500 pl-4 py-1 mb-4">
-                        <p class="font-bold text-slate-800">Q: What should I do immediately after receiving my appointment?</p>
-                        <p class="text-sm mt-1">A: Report to your assigned school head, secure your assumption of duty, and process your Landbank account for payroll inclusion.</p>
-                    </div>
-                `
+                title: "Newly Hired Teacher (Onboarding Hub)",
+                customRender: true, // Uses dedicated function below to handle the live UI data binding
+                render: function() {
+                    return `
+                        <p class="mb-6 text-slate-600">Welcome to DepEd! Follow this comprehensive roadmap to secure your appointment registry, institutional memberships, and first salary release.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center"><i class="fa-solid fa-list-check text-blue-600 mr-2"></i> Onboarding Step Checklist</h3>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                                        <div><span class="font-semibold block text-sm">Verify Appointment Checklist</span><span class="text-xs text-slate-400">Ensure Division Office signature clearance.</span></div>
+                                    </label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                                        <div><span class="font-semibold block text-sm">Panunumpa sa Katungkulan (Oath of Office)</span><span class="text-xs text-slate-400">Must be signed by the swearing authority.</span></div>
+                                    </label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                                        <div><span class="font-semibold block text-sm">GSIS Membership Profile</span><span class="text-xs text-slate-400">For compulsory life insurance and retirement cover schemes.</span></div>
+                                    </label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                                        <div><span class="font-semibold block text-sm">PhilHealth PMRF updates</span><span class="text-xs text-slate-400">Submit to secure premium contribution assignment.</span></div>
+                                    </label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                                        <div><span class="font-semibold block text-sm">Landbank Servicing Bank Account</span><span class="text-xs text-slate-400">Open an account for institutional salary processing.</span></div>
+                                    </label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                                        <div><span class="font-semibold block text-sm">Initial SALN Submission</span><span class="text-xs text-slate-400">Statement of Assets, Liabilities, and Networth within 30 days.</span></div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center"><i class="fa-solid fa-cloud-arrow-up text-blue-600 mr-2"></i> HR Document Repository</h3>
+                                
+                                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+                                    <span class="text-xs font-bold text-blue-800 uppercase block mb-2">Upload New Form Dynamic Engine</span>
+                                    <div class="flex flex-col space-y-2">
+                                        <input type="file" id="fileInputSelector" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" />
+                                        <button onclick="handleFormUploadEngine()" class="w-full bg-slate-800 text-white text-xs font-bold uppercase tracking-wider py-2 rounded-lg hover:bg-slate-700 transition"><i class="fa-solid fa-plus mr-1"></i> Push Document to List</button>
+                                    </div>
+                                </div>
+
+                                <div id="dynamicFileRepository" class="space-y-2 max-h-[320px] overflow-y-auto pr-1">
+                                    </div>
+                            </div>
+                        </div>
+                    `;
+                }
             },
             promotion: {
                 title: "Promotion & Reclassification",
@@ -156,20 +204,83 @@
                     <button class="deped-blue text-white px-4 py-2 rounded shadow text-sm hover:bg-blue-800"><i class="fa-solid fa-download mr-2"></i>Download Promotion Form Matrix</button>
                 `
             },
-            // Content for Leave, Transfer, Retirement can be added here following the same structure.
-            leave: { title: "Leave & Benefits", content: "<p>Information regarding Maternity, Paternity, Sick, and Study Leave will be displayed here.</p>" },
-            transfer: { title: "Transfer Guidelines", content: "<p>Inter and Intra-division transfer requirements will be displayed here.</p>" },
-            retirement: { title: "Retirement Procedures", content: "<p>Guidance for mandatory and optional retirement will be displayed here.</p>" }
+            leave: { title: "Leave & Benefits", content: "<p class='p-4 bg-slate-50 border rounded-xl'>Information regarding Maternity, Paternity, Sick, and Study Leave will be displayed here.</p>" },
+            transfer: { title: "Transfer Guidelines", content: "<p class='p-4 bg-slate-50 border rounded-xl'>Inter and Intra-division transfer requirements will be displayed here.</p>" },
+            retirement: { title: "Retirement Procedures", content: "<p class='p-4 bg-slate-50 border rounded-xl'>Guidance for mandatory and optional retirement will be displayed here.</p>" }
         };
+
+        // Renders file components instantly with data tracking
+        function renderFileRepositoryUI() {
+            const container = document.getElementById('dynamicFileRepository');
+            if(!container) return;
+
+            if(uploadedForms.length === 0) {
+                container.innerHTML = `<div class="text-center py-6 text-sm text-slate-400 bg-slate-50 rounded-xl border border-dashed">No downloaded forms present.</div>`;
+                return;
+            }
+
+            container.innerHTML = uploadedForms.map(form => `
+                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-blue-400 transition">
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <div class="text-red-500 text-lg flex-shrink-0"><i class="fa-solid fa-file-pdf"></i></div>
+                        <div class="truncate">
+                            <span class="text-sm font-semibold text-slate-700 block truncate" title="${form.name}">${form.name}</span>
+                            <span class="text-xs text-slate-400">${form.size}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1 pl-2">
+                        <button onclick="alert('Downloading: ${form.name}')" class="text-blue-600 hover:bg-blue-50 p-2 rounded-md text-xs transition" title="Download template form"><i class="fa-solid fa-download"></i></button>
+                        <button onclick="deleteFormEngineItem(${form.id})" class="text-slate-400 hover:text-red-500 p-2 rounded-md text-xs transition" title="Delete Form"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Processing custom file submissions dynamically (Unlimited upload capacity mockup)
+        function handleFormUploadEngine() {
+            const fileInput = document.getElementById('fileInputSelector');
+            if (!fileInput || fileInput.files.length === 0) {
+                alert("Please pick/choose a file from your system directory first.");
+                return;
+            }
+
+            const targetFile = fileInput.files[0];
+            const sizeInKbOrMb = targetFile.size > 1024 * 1024 
+                ? (targetFile.size / (1024 * 1024)).toFixed(1) + " MB" 
+                : (targetFile.size / 1024).toFixed(0) + " KB";
+
+            // Structural insertion object
+            const newFormItem = {
+                id: Date.now(), // Unique ID tracking
+                name: targetFile.name,
+                size: sizeInKbOrMb
+            };
+
+            uploadedForms.unshift(newFormItem); // Prepend to the repository stack array
+            fileInput.value = ""; // Reset input control
+            renderFileRepositoryUI(); // Instant view refresh updates
+        }
+
+        // Clear forms tracking index target arrays dynamically
+        function deleteFormEngineItem(formId) {
+            uploadedForms = uploadedForms.filter(item => item.id !== formId);
+            renderFileRepositoryUI();
+        }
 
         function loadModule(moduleId) {
             const displayArea = document.getElementById('module-display');
             const titleEl = document.getElementById('module-title');
             const contentEl = document.getElementById('module-content');
+            const targetedModule = moduleData[moduleId];
 
-            // Inject Data
-            titleEl.innerHTML = moduleData[moduleId].title;
-            contentEl.innerHTML = moduleData[moduleId].content;
+            // Direct inner template handling vs conditional function injections
+            titleEl.innerHTML = targetedModule.title;
+            if (targetedModule.customRender) {
+                contentEl.innerHTML = targetedModule.render();
+                renderFileRepositoryUI(); // Run dynamic listing render
+            } else {
+                contentEl.innerHTML = targetedModule.content;
+            }
 
             // Show UI and smooth scroll
             displayArea.classList.remove('hidden');
