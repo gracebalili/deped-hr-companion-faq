@@ -1,347 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DepEd HR Companion FAQ</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-body{font-family:'Inter',sans-serif}
-.deped-blue{background:#0033a0}.deped-red{background:#c8102e}
-.fade-in{animation:fadeIn .25s ease-in-out}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.faq-answer{max-height:0;overflow:hidden;transition:max-height .28s ease,padding .28s ease}
-.faq-item.open .faq-answer{max-height:600px;padding-bottom:18px}
-.faq-item.open .chevron{transform:rotate(180deg)}
-mark{background:#fef08a;padding:0 .1em;border-radius:.15em}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DepEd HR Companion System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .deped-blue { background-color: #0033a0; }
+        .deped-red { background-color: #c8102e; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .admin-badge {
+            background: #fbbf24;
+            color: #1e293b;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+        .upload-zone {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.2s;
+        }
+        .upload-zone:hover {
+            border-color: #0033a0;
+            background: #f8fafc;
+        }
+        /* custom scroll */
+        .scroll-docs::-webkit-scrollbar { width: 4px; }
+        .scroll-docs::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+        .scroll-docs::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 8px; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-<nav class="deped-blue text-white shadow-md sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-900 font-bold">
-          <i class="fa-solid fa-graduation-cap"></i>
+    <!-- NAV -->
+    <nav class="deped-blue text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-900 font-bold">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-wide">DepEd HR Companion</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#" class="hover:text-yellow-300 transition">Home</a>
+                    <a href="#modules" class="hover:text-yellow-300 transition">Services</a>
+                    <a href="#" class="hover:text-yellow-300 transition">Downloads</a>
+                    <a href="#" class="hover:text-yellow-300 transition">FAQ Hub</a>
+                    <!-- admin toggle (demo) -->
+                    <span class="admin-badge"><i class="fa-regular fa-circle-check mr-1"></i> Admin</span>
+                </div>
+            </div>
         </div>
-        <span class="font-bold text-xl tracking-wide">DepEd HR Companion</span>
-      </a>
-      <div class="hidden md:flex items-center gap-6 text-sm font-medium">
-        <a href="#home" class="hover:text-yellow-300">Home</a>
-        <a href="#categories" class="hover:text-yellow-300">FAQ Categories</a>
-        <a href="#all-faqs" class="hover:text-yellow-300">All FAQs</a>
-        <a href="#about" class="hover:text-yellow-300">About</a>
-      </div>
-      <button id="mobileMenuBtn" class="md:hidden p-2" aria-label="Open menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </div>
-    <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2 text-sm">
-      <a href="#home" class="block py-1">Home</a>
-      <a href="#categories" class="block py-1">FAQ Categories</a>
-      <a href="#all-faqs" class="block py-1">All FAQs</a>
-      <a href="#about" class="block py-1">About</a>
-    </div>
-  </div>
-</nav>
+    </nav>
 
-<header id="home" class="bg-white border-b">
-  <div class="max-w-5xl mx-auto px-4 py-16 text-center">
-    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-5">
-      <i class="fa-solid fa-circle-question"></i> HR FAQ Hub
-    </span>
-    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">How can we help you today?</h1>
-    <p class="text-slate-500 max-w-2xl mx-auto mb-8">
-      Your quick-reference companion for common DepEd HR concerns. Search questions, browse categories, and open answers instantly.
-    </p>
-
-    <div class="max-w-3xl mx-auto relative">
-      <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-        <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
-      </div>
-      <input id="searchInput" type="search"
-        class="block w-full pl-12 pr-28 py-4 rounded-full border border-slate-300 bg-slate-50 text-base md:text-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-        placeholder="Search HR concern (e.g., promotion, leave, transfer)..."
-        autocomplete="off">
-      <button id="clearSearch" class="hidden absolute inset-y-2 right-2 bg-slate-200 text-slate-700 px-4 rounded-full font-semibold hover:bg-slate-300">
-        Clear
-      </button>
-    </div>
-    <p id="searchStatus" class="text-xs text-slate-400 mt-3">Showing all FAQs</p>
-  </div>
-</header>
-
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
-<section id="categories" class="mb-12">
-  <div class="flex items-end justify-between mb-5">
-    <div>
-      <h2 class="text-2xl font-bold text-slate-900">Browse by Category</h2>
-      <p class="text-slate-500 text-sm mt-1">Choose an HR area to narrow the questions.</p>
-    </div>
-  </div>
-  <div id="categoryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"></div>
-</section>
-
-<section id="all-faqs" class="pb-16">
-  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
-    <div>
-      <h2 class="text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
-      <p class="text-slate-500 text-sm mt-1">Click a question to view its answer.</p>
-    </div>
-    <div class="flex gap-2">
-      <button id="expandAll" class="px-3 py-2 text-sm font-semibold rounded-lg bg-white border border-slate-200 hover:border-blue-400">
-        Expand all
-      </button>
-      <button id="collapseAll" class="px-3 py-2 text-sm font-semibold rounded-lg bg-white border border-slate-200 hover:border-blue-400">
-        Collapse all
-      </button>
-    </div>
-  </div>
-
-  <div id="faqList" class="space-y-3"></div>
-  <div id="emptyState" class="hidden bg-white border border-dashed border-slate-300 rounded-2xl p-10 text-center">
-    <i class="fa-regular fa-face-frown text-3xl text-slate-400 mb-3"></i>
-    <h3 class="font-bold text-slate-800">No matching FAQ found</h3>
-    <p class="text-sm text-slate-500 mt-1">Try a different keyword or clear the search.</p>
-  </div>
-</section>
-
-<section id="about" class="pb-16">
-  <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 md:p-8">
-    <div class="flex gap-4">
-      <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
-        <i class="fa-solid fa-circle-info"></i>
-      </div>
-      <div>
-        <h2 class="font-bold text-lg text-slate-900 mb-2">About this FAQ Hub</h2>
-        <p class="text-sm text-slate-600 leading-6">
-          This website is a front-end FAQ companion based on the structure of the supplied DepEd HR Companion System.
-          Replace the sample answers below with your Division Office's approved, current policies, memoranda, forms, and procedures before official deployment.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2 text-xs">
-          <span class="px-3 py-1 rounded-full bg-white border border-blue-100 text-blue-700">Searchable</span>
-          <span class="px-3 py-1 rounded-full bg-white border border-blue-100 text-blue-700">Responsive</span>
-          <span class="px-3 py-1 rounded-full bg-white border border-blue-100 text-blue-700">No database required</span>
-          <span class="px-3 py-1 rounded-full bg-white border border-blue-100 text-blue-700">Easy to edit</span>
+    <!-- HEADER -->
+    <header class="bg-white border-b py-16 px-4 text-center">
+        <h1 class="text-4xl font-bold text-slate-900 mb-4">How can we help you today?</h1>
+        <p class="text-slate-500 mb-8 max-w-2xl mx-auto">Your digital HR companion from appointment to retirement. Find guidelines, checklists, and forms instantly.</p>
+        
+        <div class="max-w-2xl mx-auto relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fa-solid fa-search text-gray-400"></i>
+            </div>
+            <input type="text" class="block w-full pl-12 pr-4 py-4 rounded-full border border-gray-300 bg-slate-50 text-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Search HR concern (e.g., maternity leave, promotion, SALN)..." />
+            <button class="absolute inset-y-2 right-2 deped-blue text-white px-6 rounded-full font-medium hover:bg-blue-800 transition">Search</button>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
+    </header>
 
-<footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
-  <p>© 2026 DepEd HR Companion FAQ. For educational/template purposes.</p>
-  <p class="mt-1 text-xs">Always verify current HR policies and official issuances with the appropriate DepEd office.</p>
-</footer>
-
-<script>
-const categories = [
-  {id:'all', name:'All FAQs', icon:'fa-layer-group', color:'blue'},
-  {id:'newly-hired', name:'Newly Hired', icon:'fa-user-plus', color:'blue'},
-  {id:'promotion', name:'Promotion', icon:'fa-arrow-trend-up', color:'green'},
-  {id:'leave', name:'Leave & Benefits', icon:'fa-calendar-check', color:'purple'},
-  {id:'transfer', name:'Transfer', icon:'fa-right-left', color:'orange'},
-  {id:'retirement', name:'Retirement', icon:'fa-user-clock', color:'red'}
-];
-
-/*
-  SAMPLE FAQ DATA
-  Replace/edit these answers with your Division Office's approved guidance.
-  Each object is independent so adding FAQs is simple.
-*/
-const faqs = [
-  {
-    id:1, category:'newly-hired', question:'What documents are commonly needed during onboarding?',
-    answer:'A newly hired employee may need appointment and onboarding documents, personal records, membership/benefit forms, payroll-related documents, and other requirements prescribed by the appropriate HR and administrative offices. Use your Division Office’s current checklist as the controlling reference.',
-    tags:['appointment','onboarding','requirements','new hire']
-  },
-  {
-    id:2, category:'newly-hired', question:'What should I do first after receiving my appointment?',
-    answer:'Start with the official onboarding instructions from your HR/Personnel Unit. Confirm the appointment details, submit required documents within the prescribed period, complete applicable membership or payroll requirements, and keep copies of all submissions.',
-    tags:['appointment','onboarding','first day']
-  },
-  {
-    id:3, category:'promotion', question:'What documents should I prepare for a promotion application?',
-    answer:'Prepare the documents specifically required by the current hiring or promotion announcement and applicable DepEd issuances. Requirements can vary by position, so use the latest official announcement and qualification standards issued by your Division Office.',
-    tags:['promotion','documents','requirements']
-  },
-  {
-    id:4, category:'promotion', question:'Does previous experience automatically guarantee promotion?',
-    answer:'No. Promotion or selection is based on the applicable qualification standards, criteria, documentary requirements, and the current selection process. Meeting a minimum qualification does not by itself guarantee appointment or promotion.',
-    tags:['promotion','qualification','selection']
-  },
-  {
-    id:5, category:'leave', question:'Where should I check the requirements for a leave application?',
-    answer:'Check the current leave guidelines and the forms/process prescribed by your Personnel or HR Unit. Because leave rules and documentary requirements may depend on the type of leave, always verify the applicable current issuance before filing.',
-    tags:['leave','application','requirements']
-  },
-  {
-    id:6, category:'leave', question:'Can I track the status of my leave request online?',
-    answer:'This depends on the digital systems implemented by your office. If your Division has an online tracker, follow its prescribed process. Otherwise, coordinate with the responsible Personnel/HR Unit for status verification.',
-    tags:['leave','tracking','online']
-  },
-  {
-    id:7, category:'transfer', question:'What is the usual process for requesting a transfer?',
-    answer:'Begin by checking the current transfer policy and the specific requirements of the receiving and releasing offices. Submit the prescribed request and supporting documents through the official channel and observe the applicable timelines and approval process.',
-    tags:['transfer','request','timeline']
-  },
-  {
-    id:8, category:'transfer', question:'What is the difference between intra-division and inter-division transfer?',
-    answer:'An intra-division transfer generally involves movement within the same Schools Division Office, while an inter-division transfer involves movement between different Schools Division Offices. The exact documentary and approval requirements should be verified under the current applicable policy.',
-    tags:['transfer','intra division','inter division']
-  },
-  {
-    id:9, category:'retirement', question:'When should I start preparing for retirement?',
-    answer:'Start early. Review your personal records, service history, leave and benefit records, and the requirements of the applicable retirement system. Coordinate with HR/Personnel and the concerned government benefit agency for a current checklist and timeline.',
-    tags:['retirement','requirements','planning']
-  },
-  {
-    id:10, category:'retirement', question:'Who can help me check my retirement documents?',
-    answer:'Your HR/Personnel Unit can guide you on the agency-specific documentary requirements and internal processing steps. For benefit computation or agency-specific concerns, coordinate with the appropriate government benefit institution.',
-    tags:['retirement','documents','benefits']
-  },
-  {
-    id:11, category:'all', question:'Where can I get the latest official HR forms?',
-    answer:'Use the official repository or issuing office designated by your Division Office. Avoid relying on old copies circulating through messaging apps or personal drives, especially when a form may have been revised.',
-    tags:['forms','downloads','official','documents']
-  },
-  {
-    id:12, category:'all', question:'What should I do if I am unsure whether an HR requirement is still current?',
-    answer:'Do not rely on an old checklist or screenshot alone. Verify the latest official memorandum, DepEd issuance, announcement, or instruction from the responsible HR/Personnel Unit before submitting your documents.',
-    tags:['policy','verification','memorandum','current']
-  }
-];
-
-let activeCategory = 'all';
-let query = '';
-
-const categoryGrid = document.getElementById('categoryGrid');
-const faqList = document.getElementById('faqList');
-const emptyState = document.getElementById('emptyState');
-const searchInput = document.getElementById('searchInput');
-const searchStatus = document.getElementById('searchStatus');
-const clearSearch = document.getElementById('clearSearch');
-
-function escapeHtml(str){
-  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-}
-
-function highlight(text){
-  if(!query.trim()) return escapeHtml(text);
-  const safe = escapeHtml(text);
-  const terms = query.trim().split(/\s+/).filter(Boolean).map(escapeHtml);
-  return terms.reduce((out, term) => {
-    return out.replace(new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'), '<mark>$1</mark>');
-  }, safe);
-}
-
-function renderCategories(){
-  const colorMap = {
-    blue:'bg-blue-50 text-blue-700 hover:bg-blue-100',
-    green:'bg-green-50 text-green-700 hover:bg-green-100',
-    purple:'bg-purple-50 text-purple-700 hover:bg-purple-100',
-    orange:'bg-orange-50 text-orange-700 hover:bg-orange-100',
-    red:'bg-red-50 text-red-700 hover:bg-red-100'
-  };
-  categoryGrid.innerHTML = categories.map(c => `
-    <button onclick="setCategory('${c.id}')"
-      class="text-left p-4 rounded-xl border transition ${activeCategory===c.id?'border-blue-500 ring-2 ring-blue-100':'border-slate-200'} ${colorMap[c.color]}">
-      <i class="fa-solid ${c.icon} text-lg mb-3"></i>
-      <span class="block text-sm font-bold">${c.name}</span>
-      <span class="block text-xs opacity-70 mt-1">${c.id==='all'?faqs.length:faqs.filter(f=>f.category===c.id).length} questions</span>
-    </button>
-  `).join('');
-}
-
-function filteredFaqs(){
-  const q = query.trim().toLowerCase();
-  return faqs.filter(f => {
-    const categoryMatch = activeCategory==='all' || f.category===activeCategory;
-    const searchMatch = !q || [f.question,f.answer,f.category,...f.tags].join(' ').toLowerCase().includes(q);
-    return categoryMatch && searchMatch;
-  });
-}
-
-function renderFaqs(){
-  const data = filteredFaqs();
-  faqList.innerHTML = data.map((f,index) => `
-    <article class="faq-item bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden fade-in">
-      <button class="w-full text-left p-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition"
-        onclick="toggleFaq(this)" aria-expanded="false">
-        <span class="font-semibold text-slate-800 pr-4">${highlight(f.question)}</span>
-        <i class="chevron fa-solid fa-chevron-down text-slate-400 transition-transform shrink-0"></i>
-      </button>
-      <div class="faq-answer px-5 text-sm text-slate-600 leading-6">
-        <div class="border-t border-slate-100 pt-4">${highlight(f.answer)}</div>
-        <div class="flex flex-wrap gap-2 mt-4">
-          ${f.tags.map(t=>`<span class="px-2 py-1 rounded-full bg-slate-100 text-slate-500 text-xs">#${escapeHtml(t)}</span>`).join('')}
+    <!-- MODULES GRID -->
+    <main id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- card 1 -->
+            <div onclick="loadModule('newlyHired')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-blue-500 transition group">
+                <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Newly Hired Teacher</h3>
+                <p class="text-slate-500 text-sm mb-4">Onboarding checklists, GSIS, PhilHealth, and initial requirements.</p>
+                <span class="text-blue-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+            <!-- card 2 -->
+            <div onclick="loadModule('promotion')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-green-500 transition group">
+                <div class="w-12 h-12 bg-green-100 text-green-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-green-600 group-hover:text-white transition">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Promotion</h3>
+                <p class="text-slate-500 text-sm mb-4">Pathways, qualification standards, and interactive checklists for reclassification.</p>
+                <span class="text-green-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+            <!-- card 3 -->
+            <div onclick="loadModule('leave')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-purple-500 transition group">
+                <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-purple-600 group-hover:text-white transition">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Leave & Benefits</h3>
+                <p class="text-slate-500 text-sm mb-4">Maternity, sick, study leave requirements and monetization procedures.</p>
+                <span class="text-purple-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+            <!-- card 4 -->
+            <div onclick="loadModule('transfer')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-orange-500 transition group">
+                <div class="w-12 h-12 bg-orange-100 text-orange-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-orange-600 group-hover:text-white transition">
+                    <i class="fa-solid fa-right-left"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Transfer</h3>
+                <p class="text-slate-500 text-sm mb-4">Intra-division and inter-division transfer process flows and timelines.</p>
+                <span class="text-orange-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+            <!-- card 5 -->
+            <div onclick="loadModule('retirement')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-red-500 transition group">
+                <div class="w-12 h-12 bg-red-100 text-red-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
+                    <i class="fa-solid fa-user-clock"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Retirement</h3>
+                <p class="text-slate-500 text-sm mb-4">Optional and mandatory retirement timelines, GSIS processing, and clearances.</p>
+                <span class="text-red-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
         </div>
-      </div>
-    </article>
-  `).join('');
+    </main>
 
-  emptyState.classList.toggle('hidden', data.length!==0);
-  const total = data.length;
-  searchStatus.textContent = query.trim()
-    ? `${total} matching FAQ${total===1?'':'s'} found`
-    : `Showing ${total} FAQ${total===1?'':'s'}`;
-}
+    <!-- MODULE DISPLAY (detail panel) -->
+    <section id="module-display" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 fade-in">
+        <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-8">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h2 id="module-title" class="text-2xl font-bold text-slate-800">Module Title</h2>
+                <button onclick="closeModule()" class="text-slate-400 hover:text-red-500 transition">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="module-content" class="prose max-w-none text-slate-600">
+                <!-- dynamic content -->
+            </div>
+        </div>
+    </section>
 
-function toggleFaq(button){
-  const item = button.closest('.faq-item');
-  const open = item.classList.toggle('open');
-  button.setAttribute('aria-expanded', open);
-}
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+        <p>&copy; 2026 DepEd HR Companion System. For educational and template purposes.</p>
+    </footer>
 
-function setCategory(category){
-  activeCategory = category;
-  renderCategories();
-  renderFaqs();
-  document.getElementById('all-faqs').scrollIntoView({behavior:'smooth',block:'start'});
-}
+    <script>
+        // ---------- GLOBAL STATE ----------
+        // uploadedForms : shared repository (admin uploads)
+        let uploadedForms = [
+            { id: 1, name: "Appointment_Checklist_Template.pdf", size: "245 KB" },
+            { id: 2, name: "Oath_of_Office_Form.docx", size: "120 KB" },
+            { id: 3, name: "Payroll_Inclusion_Form.pdf", size: "310 KB" },
+            { id: 4, name: "GSIS_Membership_Form.pdf", size: "1.2 MB" },
+            { id: 5, name: "PhilHealth_PMRF.pdf", size: "450 KB" },
+            { id: 6, name: "Landbank_Enrollment_Form.pdf", size: "185 KB" },
+            { id: 7, name: "SALN_Form_2026.pdf", size: "520 KB" }
+        ];
 
-function expandAll(){
-  document.querySelectorAll('.faq-item').forEach(item=>{
-    item.classList.add('open');
-    item.querySelector('button').setAttribute('aria-expanded','true');
-  });
-}
+        // ---------- MODULE DATABASE ----------
+        const moduleData = {
+            newlyHired: {
+                title: "📄 Newly Hired Teacher (Onboarding Hub)",
+                customRender: true,
+                render: function() {
+                    return `
+                        <p class="mb-6 text-slate-600">Welcome to DepEd! Follow this comprehensive roadmap to secure your appointment registry, institutional memberships, and first salary release.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center"><i class="fa-solid fa-list-check text-blue-600 mr-2"></i> Onboarding Step Checklist</h3>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Verify Appointment Checklist</span><span class="text-xs text-slate-400">Ensure Division Office signature clearance.</span></div></label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Panunumpa sa Katungkulan (Oath of Office)</span><span class="text-xs text-slate-400">Must be signed by the swearing authority.</span></div></label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">GSIS Membership Profile</span><span class="text-xs text-slate-400">For compulsory life insurance and retirement cover.</span></div></label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">PhilHealth PMRF updates</span><span class="text-xs text-slate-400">Submit to secure premium contribution.</span></div></label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Landbank Servicing Account</span><span class="text-xs text-slate-400">Open for salary processing.</span></div></label>
+                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Initial SALN Submission</span><span class="text-xs text-slate-400">within 30 days of appointment.</span></div></label>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center"><i class="fa-solid fa-cloud-arrow-up text-blue-600 mr-2"></i> Admin Document Repository</h3>
+                                <!-- ADMIN UPLOAD ZONE (polished) -->
+                                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 upload-zone">
+                                    <span class="text-xs font-bold text-blue-800 uppercase block mb-2"><i class="fa-regular fa-pen-to-square mr-1"></i> Admin upload (share templates)</span>
+                                    <div class="flex flex-col sm:flex-row gap-2">
+                                        <input type="file" id="fileInputSelector" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" />
+                                        <button onclick="handleFormUploadEngine()" class="bg-slate-800 text-white text-xs font-bold uppercase tracking-wider py-2 px-4 rounded-lg hover:bg-slate-700 transition flex items-center justify-center gap-1"><i class="fa-solid fa-upload"></i> Upload</button>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 mt-1"><i class="fa-regular fa-circle-info"></i> PDF, DOCX, XLSX – any size supported (demo)</p>
+                                </div>
+                                <!-- dynamic list -->
+                                <div id="dynamicFileRepository" class="space-y-2 max-h-[320px] overflow-y-auto pr-1 scroll-docs">
+                                    <!-- rendered by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            promotion: {
+                title: "🏆 Promotion & Reclassification",
+                content: `
+                    <h3 class="text-lg font-bold text-slate-800 mb-3">Teacher I to Teacher III Requirements</h3>
+                    <p class="mb-4">Ensure all documents are updated and authenticated before submission to the Division Office.</p>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
+                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Updated Personal Data Sheet (PDS)</span></label>
+                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Approved IPCRF (Last 3 rating periods)</span></label>
+                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Transcript of Records (MA Units if applicable)</span></label>
+                        <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Certificates of Specialized Trainings</span></label>
+                    </div>
+                    <button class="deped-blue text-white px-4 py-2 rounded shadow text-sm hover:bg-blue-800"><i class="fa-solid fa-download mr-2"></i>Download Promotion Form Matrix</button>
+                `
+            },
+            leave: { title: "🌿 Leave & Benefits", content: "<p class='p-4 bg-slate-50 border rounded-xl'>📌 Maternity, Paternity, Sick, and Study Leave guidelines – including monetization and forms.</p>" },
+            transfer: { title: "🔄 Transfer Guidelines", content: "<p class='p-4 bg-slate-50 border rounded-xl'>📌 Intra-division and inter-division transfer process flows, timelines, and required clearances.</p>" },
+            retirement: { title: "🧓 Retirement Procedures", content: "<p class='p-4 bg-slate-50 border rounded-xl'>📌 Mandatory and optional retirement checklists, GSIS processing, and clearance steps.</p>" }
+        };
 
-function collapseAll(){
-  document.querySelectorAll('.faq-item').forEach(item=>{
-    item.classList.remove('open');
-    item.querySelector('button').setAttribute('aria-expanded','false');
-  });
-}
+        // ---------- RENDER REPOSITORY ----------
+        function renderFileRepositoryUI() {
+            const container = document.getElementById('dynamicFileRepository');
+            if (!container) return;
+            if (uploadedForms.length === 0) {
+                container.innerHTML = `<div class="text-center py-6 text-sm text-slate-400 bg-slate-50 rounded-xl border border-dashed">📭 No templates uploaded yet.</div>`;
+                return;
+            }
+            container.innerHTML = uploadedForms.map(form => `
+                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-blue-400 transition">
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <div class="text-red-500 text-lg flex-shrink-0"><i class="fa-solid fa-file-pdf"></i></div>
+                        <div class="truncate">
+                            <span class="text-sm font-semibold text-slate-700 block truncate" title="${form.name}">${form.name}</span>
+                            <span class="text-xs text-slate-400">${form.size}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1 pl-2">
+                        <button onclick="alert('⬇️ Downloading: ${form.name}')" class="text-blue-600 hover:bg-blue-50 p-2 rounded-md text-xs transition" title="Download template"><i class="fa-solid fa-download"></i></button>
+                        <button onclick="deleteFormEngineItem(${form.id})" class="text-slate-400 hover:text-red-500 p-2 rounded-md text-xs transition" title="Remove form"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-searchInput.addEventListener('input', e=>{
-  query = e.target.value;
-  clearSearch.classList.toggle('hidden', !query);
-  renderFaqs();
-});
+        // ---------- UPLOAD ENGINE (admin) ----------
+        function handleFormUploadEngine() {
+            const fileInput = document.getElementById('fileInputSelector');
+            if (!fileInput || fileInput.files.length === 0) {
+                alert("⚠️ Please select a file from your device first.");
+                return;
+            }
+            const targetFile = fileInput.files[0];
+            const size = targetFile.size > 1024 * 1024 
+                ? (targetFile.size / (1024 * 1024)).toFixed(1) + " MB" 
+                : (targetFile.size / 1024).toFixed(0) + " KB";
+            
+            const newItem = {
+                id: Date.now() + Math.random() * 1000,
+                name: targetFile.name,
+                size: size
+            };
+            uploadedForms.unshift(newItem);
+            fileInput.value = ""; // reset
+            renderFileRepositoryUI();
+            // subtle feedback
+            const btn = document.querySelector('.upload-zone');
+            btn.style.borderColor = '#22c55e';
+            setTimeout(() => btn.style.borderColor = '#cbd5e1', 600);
+        }
 
-clearSearch.addEventListener('click', ()=>{
-  searchInput.value='';
-  query='';
-  clearSearch.classList.add('hidden');
-  renderFaqs();
-  searchInput.focus();
-});
+        // ---------- DELETE ----------
+        function deleteFormEngineItem(id) {
+            uploadedForms = uploadedForms.filter(item => item.id !== id);
+            renderFileRepositoryUI();
+        }
 
-document.getElementById('expandAll').addEventListener('click',expandAll);
-document.getElementById('collapseAll').addEventListener('click',collapseAll);
+        // ---------- LOAD MODULE ----------
+        function loadModule(moduleId) {
+            const displayArea = document.getElementById('module-display');
+            const titleEl = document.getElementById('module-title');
+            const contentEl = document.getElementById('module-content');
+            const mod = moduleData[moduleId];
+            if (!mod) return;
 
-document.getElementById('mobileMenuBtn').addEventListener('click',()=>{
-  document.getElementById('mobileMenu').classList.toggle('hidden');
-});
+            titleEl.textContent = mod.title;
+            if (mod.customRender) {
+                contentEl.innerHTML = mod.render();
+                renderFileRepositoryUI(); // re-bind dynamic list
+            } else {
+                contentEl.innerHTML = mod.content || '<p>Content coming soon.</p>';
+            }
+            displayArea.classList.remove('hidden');
+            displayArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
-renderCategories();
-renderFaqs();
-</script>
+        // ---------- CLOSE MODULE ----------
+        function closeModule() {
+            document.getElementById('module-display').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ---------- INIT (render if any module active) ----------
+        document.addEventListener('DOMContentLoaded', function() {
+            // if module display hidden, still render repository when needed
+            // but we call render only when module loads.
+            // Pre-render not needed.
+        });
+    </script>
 </body>
 </html>
