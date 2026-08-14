@@ -1,313 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DepEd HR Companion System</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        * { font-family: 'Inter', sans-serif; }
-        .deped-blue { background-color: #0033a0; }
-        .deped-red { background-color: #c8102e; }
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .admin-badge {
-            background: #fbbf24;
-            color: #1e293b;
-            font-size: 0.6rem;
-            font-weight: 700;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            letter-spacing: 0.3px;
-        }
-        .upload-zone {
-            border: 2px dashed #cbd5e1;
-            transition: all 0.2s;
-        }
-        .upload-zone:hover {
-            border-color: #0033a0;
-            background: #f8fafc;
-        }
-        /* custom scroll */
-        .scroll-docs::-webkit-scrollbar { width: 4px; }
-        .scroll-docs::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
-        .scroll-docs::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 8px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DepEd HR · Newly Hired Teacher Onboarding</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+    .bg-deped-blue { background-color: #0033a0; }
+    .text-deped-blue { color: #0033a0; }
+    .border-deped-blue { border-color: #0033a0; }
+    
+    .upload-card {
+      border: 2px dashed #e2e8f0;
+      transition: all 0.2s ease;
+      background: #fafcff;
+    }
+    .upload-card:hover {
+      border-color: #0033a0;
+      background: #f0f5ff;
+    }
+    .upload-card.drag-over {
+      border-color: #22c55e;
+      background: #f0fdf4;
+    }
+    
+    .template-item {
+      transition: all 0.15s ease;
+      border-left: 3px solid #0033a0;
+    }
+    .template-item:hover {
+      background: #f8fafc;
+      transform: translateX(3px);
+    }
+    
+    .badge-count {
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+    }
+    
+    .scroll-templates {
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .scroll-templates::-webkit-scrollbar { width: 4px; }
+    .scroll-templates::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 12px; }
+    .scroll-templates::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 12px; }
+    
+    .fade-in { animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-    <!-- NAV -->
-    <nav class="deped-blue text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-900 font-bold">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <span class="font-bold text-xl tracking-wide">DepEd HR Companion</span>
-                </div>
-                <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
-                    <a href="#" class="hover:text-yellow-300 transition">Home</a>
-                    <a href="#modules" class="hover:text-yellow-300 transition">Services</a>
-                    <a href="#" class="hover:text-yellow-300 transition">Downloads</a>
-                    <a href="#" class="hover:text-yellow-300 transition">FAQ Hub</a>
-                    <!-- admin toggle (demo) -->
-                    <span class="admin-badge"><i class="fa-regular fa-circle-check mr-1"></i> Admin</span>
-                </div>
-            </div>
+  <!-- ===== NAV ===== -->
+  <nav class="bg-deped-blue text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-white rounded-full flex items-center justify-center text-deped-blue font-bold text-sm shadow">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <span class="font-bold text-lg tracking-tight">DepEd HR · Onboarding</span>
+          <span class="hidden sm:inline-block ml-1 bg-yellow-300 text-[0.6rem] font-black text-slate-800 px-2 py-0.5 rounded-full uppercase tracking-wider">Admin</span>
         </div>
-    </nav>
+        <div class="flex items-center gap-4 text-sm font-medium">
+          <a href="#" class="hover:text-yellow-200 transition">Home</a>
+          <a href="#onboarding-section" class="hover:text-yellow-200 transition">Onboarding</a>
+          <a href="#template-vault" class="hover:text-yellow-200 transition">Templates</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-    <!-- HEADER -->
-    <header class="bg-white border-b py-16 px-4 text-center">
-        <h1 class="text-4xl font-bold text-slate-900 mb-4">How can we help you today?</h1>
-        <p class="text-slate-500 mb-8 max-w-2xl mx-auto">Your digital HR companion from appointment to retirement. Find guidelines, checklists, and forms instantly.</p>
+  <!-- ===== HERO ===== -->
+  <header class="bg-white border-b border-slate-200 py-12 px-4 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
+        🎓 Newly Hired Teacher <span class="text-deped-blue">Onboarding</span>
+      </h1>
+      <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
+        Everything you need to start your DepEd journey. Upload and manage all required forms in one place.
+      </p>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main id="onboarding-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- ===== ONBOARDING CHECKLIST ===== -->
+    <div class="mb-8 bg-white rounded-xl shadow-md border border-slate-200 p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <i class="fa-regular fa-list-check text-2xl text-deped-blue"></i>
+        <h2 class="text-xl font-bold text-slate-800">📋 Onboarding Checklist</h2>
+        <span class="ml-auto text-xs text-slate-400 bg-slate-100 px-3 py-1 rounded-full">Complete all steps</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+        <label class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+          <input type="checkbox" class="mt-1 w-4 h-4 text-deped-blue rounded border-slate-300" />
+          <span><span class="font-semibold">Personal Data Sheet (PDS)</span> <span class="block text-xs text-slate-400">CS Form 212 (Revised 2017)</span></span>
+        </label>
+        <label class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+          <input type="checkbox" class="mt-1 w-4 h-4 text-deped-blue rounded border-slate-300" />
+          <span><span class="font-semibold">Work Experience Sheet</span> <span class="block text-xs text-slate-400">Attachment to PDS</span></span>
+        </label>
+        <label class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+          <input type="checkbox" class="mt-1 w-4 h-4 text-deped-blue rounded border-slate-300" />
+          <span><span class="font-semibold">Panunumpa sa Katungkulan</span> <span class="block text-xs text-slate-400">Oath of Office</span></span>
+        </label>
+        <label class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+          <input type="checkbox" class="mt-1 w-4 h-4 text-deped-blue rounded border-slate-300" />
+          <span><span class="font-semibold">Medical Clearance</span> <span class="block text-xs text-slate-400">From government hospital</span></span>
+        </label>
+        <label class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+          <input type="checkbox" class="mt-1 w-4 h-4 text-deped-blue rounded border-slate-300" />
+          <span><span class="font-semibold">NBI Clearance</span> <span class="block text-xs text-slate-400">Original copy</span></span>
+        </label>
+        <label class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+          <input type="checkbox" class="mt-1 w-4 h-4 text-deped-blue rounded border-slate-300" />
+          <span><span class="font-semibold">Transcript of Records</span> <span class="block text-xs text-slate-400">Certified true copy</span></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ===== TEMPLATE VAULT (with dedicated upload buttons) ===== -->
+    <section id="template-vault" class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
+      <div class="flex items-center gap-3 mb-6">
+        <i class="fa-regular fa-folder-open text-2xl text-deped-blue"></i>
+        <h2 class="text-xl font-bold text-slate-800">📂 Template Vault</h2>
+        <span class="ml-auto text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fa-regular fa-circle-check mr-1"></i> Upload & manage templates</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
-        <div class="max-w-2xl mx-auto relative">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <i class="fa-solid fa-search text-gray-400"></i>
-            </div>
-            <input type="text" class="block w-full pl-12 pr-4 py-4 rounded-full border border-gray-300 bg-slate-50 text-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Search HR concern (e.g., maternity leave, promotion, SALN)..." />
-            <button class="absolute inset-y-2 right-2 deped-blue text-white px-6 rounded-full font-medium hover:bg-blue-800 transition">Search</button>
+        <!-- CARD 1: Personal Data Sheet -->
+        <div class="upload-card rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <i class="fa-regular fa-id-card text-xl text-deped-blue"></i>
+            <h3 class="font-bold text-slate-800">Personal Data Sheet</h3>
+            <span id="pdsCount" class="badge-count ml-auto">0 files</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-3">CS Form 212 (Revised 2017) · Required for all new hires</p>
+          <div class="flex items-center gap-2">
+            <input type="file" id="pdsUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+            <button onclick="uploadTemplate('pds')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
+              <i class="fa-solid fa-upload"></i> Upload
+            </button>
+          </div>
+          <div id="pdsTemplates" class="scroll-templates mt-3 space-y-1.5">
+            <!-- dynamic -->
+          </div>
         </div>
-    </header>
 
-    <!-- MODULES GRID -->
-    <main id="modules" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- card 1 -->
-            <div onclick="loadModule('newlyHired')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-blue-500 transition group">
-                <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-user-plus"></i>
-                </div>
-                <h3 class="text-lg font-bold mb-2">Newly Hired Teacher</h3>
-                <p class="text-slate-500 text-sm mb-4">Onboarding checklists, GSIS, PhilHealth, and initial requirements.</p>
-                <span class="text-blue-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
-            </div>
-            <!-- card 2 -->
-            <div onclick="loadModule('promotion')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-green-500 transition group">
-                <div class="w-12 h-12 bg-green-100 text-green-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-green-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                </div>
-                <h3 class="text-lg font-bold mb-2">Promotion</h3>
-                <p class="text-slate-500 text-sm mb-4">Pathways, qualification standards, and interactive checklists for reclassification.</p>
-                <span class="text-green-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
-            </div>
-            <!-- card 3 -->
-            <div onclick="loadModule('leave')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-purple-500 transition group">
-                <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-purple-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-calendar-check"></i>
-                </div>
-                <h3 class="text-lg font-bold mb-2">Leave & Benefits</h3>
-                <p class="text-slate-500 text-sm mb-4">Maternity, sick, study leave requirements and monetization procedures.</p>
-                <span class="text-purple-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
-            </div>
-            <!-- card 4 -->
-            <div onclick="loadModule('transfer')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-orange-500 transition group">
-                <div class="w-12 h-12 bg-orange-100 text-orange-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-orange-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-right-left"></i>
-                </div>
-                <h3 class="text-lg font-bold mb-2">Transfer</h3>
-                <p class="text-slate-500 text-sm mb-4">Intra-division and inter-division transfer process flows and timelines.</p>
-                <span class="text-orange-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
-            </div>
-            <!-- card 5 -->
-            <div onclick="loadModule('retirement')" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer hover:shadow-md hover:border-red-500 transition group">
-                <div class="w-12 h-12 bg-red-100 text-red-700 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-user-clock"></i>
-                </div>
-                <h3 class="text-lg font-bold mb-2">Retirement</h3>
-                <p class="text-slate-500 text-sm mb-4">Optional and mandatory retirement timelines, GSIS processing, and clearances.</p>
-                <span class="text-red-600 font-medium text-sm flex items-center">View Guidelines <i class="fa-solid fa-arrow-right ml-2"></i></span>
-            </div>
+        <!-- CARD 2: Work Experience Sheet -->
+        <div class="upload-card rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <i class="fa-regular fa-briefcase text-xl text-deped-blue"></i>
+            <h3 class="font-bold text-slate-800">Work Experience Sheet</h3>
+            <span id="wesCount" class="badge-count ml-auto">0 files</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-3">Attachment to PDS · Detailed work history</p>
+          <div class="flex items-center gap-2">
+            <input type="file" id="wesUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+            <button onclick="uploadTemplate('wes')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
+              <i class="fa-solid fa-upload"></i> Upload
+            </button>
+          </div>
+          <div id="wesTemplates" class="scroll-templates mt-3 space-y-1.5">
+            <!-- dynamic -->
+          </div>
         </div>
-    </main>
 
-    <!-- MODULE DISPLAY (detail panel) -->
-    <section id="module-display" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 fade-in">
-        <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-8">
-            <div class="flex justify-between items-center mb-6 border-b pb-4">
-                <h2 id="module-title" class="text-2xl font-bold text-slate-800">Module Title</h2>
-                <button onclick="closeModule()" class="text-slate-400 hover:text-red-500 transition">
-                    <i class="fa-solid fa-times text-xl"></i>
-                </button>
-            </div>
-            <div id="module-content" class="prose max-w-none text-slate-600">
-                <!-- dynamic content -->
-            </div>
+        <!-- CARD 3: Panunumpa (Oath) -->
+        <div class="upload-card rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <i class="fa-regular fa-hand text-xl text-deped-blue"></i>
+            <h3 class="font-bold text-slate-800">Panunumpa sa Katungkulan</h3>
+            <span id="oathCount" class="badge-count ml-auto">0 files</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-3">Oath of Office · Signed before authorized official</p>
+          <div class="flex items-center gap-2">
+            <input type="file" id="oathUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+            <button onclick="uploadTemplate('oath')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
+              <i class="fa-solid fa-upload"></i> Upload
+            </button>
+          </div>
+          <div id="oathTemplates" class="scroll-templates mt-3 space-y-1.5">
+            <!-- dynamic -->
+          </div>
         </div>
+
+        <!-- CARD 4: Checklist & Guides -->
+        <div class="upload-card rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <i class="fa-regular fa-list-check text-xl text-deped-blue"></i>
+            <h3 class="font-bold text-slate-800">Checklist &amp; Guides</h3>
+            <span id="guideCount" class="badge-count ml-auto">0 files</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-3">Step-by-step guides, checklists, and reference materials</p>
+          <div class="flex items-center gap-2">
+            <input type="file" id="guideUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+            <button onclick="uploadTemplate('guide')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
+              <i class="fa-solid fa-upload"></i> Upload
+            </button>
+          </div>
+          <div id="guideTemplates" class="scroll-templates mt-3 space-y-1.5">
+            <!-- dynamic -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- summary -->
+      <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-400 flex justify-between items-center">
+        <span><i class="fa-regular fa-circle-info mr-1"></i> All templates are accessible to teachers</span>
+        <span id="totalCount">Total: 0 templates</span>
+      </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
-        <p>&copy; 2026 DepEd HR Companion System. For educational and template purposes.</p>
-    </footer>
+  </main>
 
-    <script>
-        // ---------- GLOBAL STATE ----------
-        // uploadedForms : shared repository (admin uploads)
-        let uploadedForms = [
-            { id: 1, name: "Appointment_Checklist_Template.pdf", size: "245 KB" },
-            { id: 2, name: "Oath_of_Office_Form.docx", size: "120 KB" },
-            { id: 3, name: "Payroll_Inclusion_Form.pdf", size: "310 KB" },
-            { id: 4, name: "GSIS_Membership_Form.pdf", size: "1.2 MB" },
-            { id: 5, name: "PhilHealth_PMRF.pdf", size: "450 KB" },
-            { id: 6, name: "Landbank_Enrollment_Form.pdf", size: "185 KB" },
-            { id: 7, name: "SALN_Form_2026.pdf", size: "520 KB" }
-        ];
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-slate-900 text-slate-300 mt-12 py-6 text-center text-sm border-t border-slate-700">
+    <p class="opacity-80">&copy; 2026 DepEd HR Companion · Newly Hired Teacher Onboarding</p>
+    <p class="text-xs text-slate-500 mt-1">Built with ❤️ for every DepEd employee.</p>
+  </footer>
 
-        // ---------- MODULE DATABASE ----------
-        const moduleData = {
-            newlyHired: {
-                title: "📄 Newly Hired Teacher (Onboarding Hub)",
-                customRender: true,
-                render: function() {
-                    return `
-                        <p class="mb-6 text-slate-600">Welcome to DepEd! Follow this comprehensive roadmap to secure your appointment registry, institutional memberships, and first salary release.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center"><i class="fa-solid fa-list-check text-blue-600 mr-2"></i> Onboarding Step Checklist</h3>
-                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
-                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Verify Appointment Checklist</span><span class="text-xs text-slate-400">Ensure Division Office signature clearance.</span></div></label>
-                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Panunumpa sa Katungkulan (Oath of Office)</span><span class="text-xs text-slate-400">Must be signed by the swearing authority.</span></div></label>
-                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">GSIS Membership Profile</span><span class="text-xs text-slate-400">For compulsory life insurance and retirement cover.</span></div></label>
-                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">PhilHealth PMRF updates</span><span class="text-xs text-slate-400">Submit to secure premium contribution.</span></div></label>
-                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Landbank Servicing Account</span><span class="text-xs text-slate-400">Open for salary processing.</span></div></label>
-                                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition"><input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><div><span class="font-semibold block text-sm">Initial SALN Submission</span><span class="text-xs text-slate-400">within 30 days of appointment.</span></div></label>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center"><i class="fa-solid fa-cloud-arrow-up text-blue-600 mr-2"></i> Admin Document Repository</h3>
-                                <!-- ADMIN UPLOAD ZONE (polished) -->
-                                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 upload-zone">
-                                    <span class="text-xs font-bold text-blue-800 uppercase block mb-2"><i class="fa-regular fa-pen-to-square mr-1"></i> Admin upload (share templates)</span>
-                                    <div class="flex flex-col sm:flex-row gap-2">
-                                        <input type="file" id="fileInputSelector" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" />
-                                        <button onclick="handleFormUploadEngine()" class="bg-slate-800 text-white text-xs font-bold uppercase tracking-wider py-2 px-4 rounded-lg hover:bg-slate-700 transition flex items-center justify-center gap-1"><i class="fa-solid fa-upload"></i> Upload</button>
-                                    </div>
-                                    <p class="text-[10px] text-slate-500 mt-1"><i class="fa-regular fa-circle-info"></i> PDF, DOCX, XLSX – any size supported (demo)</p>
-                                </div>
-                                <!-- dynamic list -->
-                                <div id="dynamicFileRepository" class="space-y-2 max-h-[320px] overflow-y-auto pr-1 scroll-docs">
-                                    <!-- rendered by JS -->
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-            },
-            promotion: {
-                title: "🏆 Promotion & Reclassification",
-                content: `
-                    <h3 class="text-lg font-bold text-slate-800 mb-3">Teacher I to Teacher III Requirements</h3>
-                    <p class="mb-4">Ensure all documents are updated and authenticated before submission to the Division Office.</p>
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
-                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Updated Personal Data Sheet (PDS)</span></label>
-                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Approved IPCRF (Last 3 rating periods)</span></label>
-                        <label class="flex items-center space-x-3 mb-2 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Transcript of Records (MA Units if applicable)</span></label>
-                        <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 text-green-600 rounded"><span>Certificates of Specialized Trainings</span></label>
-                    </div>
-                    <button class="deped-blue text-white px-4 py-2 rounded shadow text-sm hover:bg-blue-800"><i class="fa-solid fa-download mr-2"></i>Download Promotion Form Matrix</button>
-                `
-            },
-            leave: { title: "🌿 Leave & Benefits", content: "<p class='p-4 bg-slate-50 border rounded-xl'>📌 Maternity, Paternity, Sick, and Study Leave guidelines – including monetization and forms.</p>" },
-            transfer: { title: "🔄 Transfer Guidelines", content: "<p class='p-4 bg-slate-50 border rounded-xl'>📌 Intra-division and inter-division transfer process flows, timelines, and required clearances.</p>" },
-            retirement: { title: "🧓 Retirement Procedures", content: "<p class='p-4 bg-slate-50 border rounded-xl'>📌 Mandatory and optional retirement checklists, GSIS processing, and clearance steps.</p>" }
-        };
+  <script>
+    // ===== DATA STORE (per category) =====
+    const templateStore = {
+      pds: [
+        { id: 1, name: "CS_Form_212_PDS_2026.pdf", size: "320 KB" },
+        { id: 2, name: "PDS_Attachment_Guide.pdf", size: "180 KB" },
+      ],
+      wes: [
+        { id: 3, name: "Work_Experience_Sheet_Template.docx", size: "95 KB" },
+        { id: 4, name: "WES_Sample_Filled.pdf", size: "210 KB" },
+      ],
+      oath: [
+        { id: 5, name: "Panunumpa_sa_Katungkulan.pdf", size: "145 KB" },
+        { id: 6, name: "Oath_of_Office_Instructions.docx", size: "65 KB" },
+      ],
+      guide: [
+        { id: 7, name: "New_Hire_Checklist_2026.pdf", size: "275 KB" },
+        { id: 8, name: "Onboarding_Guide_Booklet.pdf", size: "1.1 MB" },
+        { id: 9, name: "Requirements_Summary_Sheet.pdf", size: "190 KB" },
+      ]
+    };
 
-        // ---------- RENDER REPOSITORY ----------
-        function renderFileRepositoryUI() {
-            const container = document.getElementById('dynamicFileRepository');
-            if (!container) return;
-            if (uploadedForms.length === 0) {
-                container.innerHTML = `<div class="text-center py-6 text-sm text-slate-400 bg-slate-50 rounded-xl border border-dashed">📭 No templates uploaded yet.</div>`;
-                return;
-            }
-            container.innerHTML = uploadedForms.map(form => `
-                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-blue-400 transition">
-                    <div class="flex items-center space-x-3 overflow-hidden">
-                        <div class="text-red-500 text-lg flex-shrink-0"><i class="fa-solid fa-file-pdf"></i></div>
-                        <div class="truncate">
-                            <span class="text-sm font-semibold text-slate-700 block truncate" title="${form.name}">${form.name}</span>
-                            <span class="text-xs text-slate-400">${form.size}</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-1 pl-2">
-                        <button onclick="alert('⬇️ Downloading: ${form.name}')" class="text-blue-600 hover:bg-blue-50 p-2 rounded-md text-xs transition" title="Download template"><i class="fa-solid fa-download"></i></button>
-                        <button onclick="deleteFormEngineItem(${form.id})" class="text-slate-400 hover:text-red-500 p-2 rounded-md text-xs transition" title="Remove form"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </div>
-            `).join('');
-        }
+    // ===== RENDER FUNCTION =====
+    function renderCategory(category, containerId, countId) {
+      const container = document.getElementById(containerId);
+      const countEl = document.getElementById(countId);
+      if (!container) return;
 
-        // ---------- UPLOAD ENGINE (admin) ----------
-        function handleFormUploadEngine() {
-            const fileInput = document.getElementById('fileInputSelector');
-            if (!fileInput || fileInput.files.length === 0) {
-                alert("⚠️ Please select a file from your device first.");
-                return;
-            }
-            const targetFile = fileInput.files[0];
-            const size = targetFile.size > 1024 * 1024 
-                ? (targetFile.size / (1024 * 1024)).toFixed(1) + " MB" 
-                : (targetFile.size / 1024).toFixed(0) + " KB";
-            
-            const newItem = {
-                id: Date.now() + Math.random() * 1000,
-                name: targetFile.name,
-                size: size
-            };
-            uploadedForms.unshift(newItem);
-            fileInput.value = ""; // reset
-            renderFileRepositoryUI();
-            // subtle feedback
-            const btn = document.querySelector('.upload-zone');
-            btn.style.borderColor = '#22c55e';
-            setTimeout(() => btn.style.borderColor = '#cbd5e1', 600);
-        }
+      const items = templateStore[category] || [];
+      
+      if (countEl) countEl.textContent = `${items.length} files`;
 
-        // ---------- DELETE ----------
-        function deleteFormEngineItem(id) {
-            uploadedForms = uploadedForms.filter(item => item.id !== id);
-            renderFileRepositoryUI();
-        }
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-3 text-[10px] text-slate-400 bg-slate-50 rounded-lg border border-dashed">
+            <i class="fa-regular fa-cloud-arrow-up mr-1"></i> No files uploaded yet
+          </div>
+        `;
+        return;
+      }
 
-        // ---------- LOAD MODULE ----------
-        function loadModule(moduleId) {
-            const displayArea = document.getElementById('module-display');
-            const titleEl = document.getElementById('module-title');
-            const contentEl = document.getElementById('module-content');
-            const mod = moduleData[moduleId];
-            if (!mod) return;
+      container.innerHTML = items.map(t => `
+        <div class="template-item bg-white rounded-lg border border-slate-200 p-2 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 overflow-hidden flex-1">
+            <div class="text-red-500 text-sm flex-shrink-0"><i class="fa-regular fa-file-pdf"></i></div>
+            <div class="truncate">
+              <span class="text-xs font-medium text-slate-700 block truncate" title="${t.name}">${t.name}</span>
+              <span class="text-[9px] text-slate-400">${t.size}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-0.5 flex-shrink-0">
+            <button onclick="downloadFile('${t.name}')" class="text-blue-600 hover:bg-blue-50 p-1 rounded-md text-xs transition" title="Download">
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <button onclick="deleteFile(${t.id}, '${category}')" class="text-slate-400 hover:text-red-500 p-1 rounded-md text-xs transition" title="Remove">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
 
-            titleEl.textContent = mod.title;
-            if (mod.customRender) {
-                contentEl.innerHTML = mod.render();
-                renderFileRepositoryUI(); // re-bind dynamic list
-            } else {
-                contentEl.innerHTML = mod.content || '<p>Content coming soon.</p>';
-            }
-            displayArea.classList.remove('hidden');
-            displayArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+      updateTotalCount();
+    }
 
-        // ---------- CLOSE MODULE ----------
-        function closeModule() {
-            document.getElementById('module-display').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    // ===== UPLOAD FUNCTION =====
+    function uploadTemplate(category) {
+      const uploadMap = {
+        pds: 'pdsUpload',
+        wes: 'wesUpload',
+        oath: 'oathUpload',
+        guide: 'guideUpload'
+      };
+      
+      const input = document.getElementById(uploadMap[category]);
+      if (!input || input.files.length === 0) {
+        alert(`📂 Please select a file for "${getCategoryLabel(category)}" first.`);
+        return;
+      }
 
-        // ---------- INIT (render if any module active) ----------
-        document.addEventListener('DOMContentLoaded', function() {
-            // if module display hidden, still render repository when needed
-            // but we call render only when module loads.
-            // Pre-render not needed.
-        });
-    </script>
+      const file = input.files[0];
+      const size = file.size > 1024 * 1024 
+        ? (file.size / (1024 * 1024)).toFixed(1) + ' MB' 
+        : (file.size / 1024).toFixed(0) + ' KB';
+
+      const newFile = {
+        id: Date.now() + Math.floor(Math.random() * 1000),
+        name: file.name,
+        size: size,
+      };
+
+      templateStore[category].unshift(newFile);
+      input.value = '';
+
+      // Re-render
+      const renderMap = {
+        pds: { container: 'pdsTemplates', count: 'pdsCount' },
+        wes: { container: 'wesTemplates', count: 'wesCount' },
+        oath: { container: 'oathTemplates', count: 'oathCount' },
+        guide: { container: 'guideTemplates', count: 'guideCount' }
+      };
+      
+      const { container, count } = renderMap[category];
+      renderCategory(category, container, count);
+
+      // Visual feedback
+      const card = input.closest('.upload-card');
+      if (card) {
+        card.style.borderColor = '#22c55e';
+        setTimeout(() => card.style.borderColor = '#e2e8f0', 700);
+      }
+    }
+
+    // ===== DELETE FUNCTION =====
+    function deleteFile(id, category) {
+      if (!confirm(`Remove this file from "${getCategoryLabel(category)}"?`)) return;
+      
+      templateStore[category] = templateStore[category].filter(t => t.id !== id);
+      
+      const renderMap = {
+        pds: { container: 'pdsTemplates', count: 'pdsCount' },
+        wes: { container: 'wesTemplates', count: 'wesCount' },
+        oath: { container: 'oathTemplates', count: 'oathCount' },
+        guide: { container: 'guideTemplates', count: 'guideCount' }
+      };
+      
+      const { container, count } = renderMap[category];
+      renderCategory(category, container, count);
+    }
+
+    // ===== DOWNLOAD (simulated) =====
+    function downloadFile(name) {
+      alert(`⬇️ Downloading: "${name}" (simulated – file would be served in production)`);
+    }
+
+    // ===== HELPERS =====
+    function getCategoryLabel(cat) {
+      const labels = {
+        pds: 'Personal Data Sheet',
+        wes: 'Work Experience Sheet',
+        oath: 'Panunumpa sa Katungkulan',
+        guide: 'Checklist & Guides'
+      };
+      return labels[cat] || cat;
+    }
+
+    function updateTotalCount() {
+      const total = Object.values(templateStore).reduce((sum, arr) => sum + arr.length, 0);
+      const el = document.getElementById('totalCount');
+      if (el) el.textContent = `Total: ${total} templates`;
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategory('pds', 'pdsTemplates', 'pdsCount');
+      renderCategory('wes', 'wesTemplates', 'wesCount');
+      renderCategory('oath', 'oathTemplates', 'oathCount');
+      renderCategory('guide', 'guideTemplates', 'guideCount');
+    });
+  </script>
 </body>
 </html>
