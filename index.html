@@ -13,18 +13,15 @@
     .text-deped-blue { color: #0033a0; }
     .border-deped-blue { border-color: #0033a0; }
     
-    .upload-card {
-      border: 2px dashed #e2e8f0;
+    .template-card {
+      border: 1px solid #e2e8f0;
       transition: all 0.2s ease;
-      background: #fafcff;
+      background: #ffffff;
     }
-    .upload-card:hover {
+    .template-card:hover {
+      box-shadow: 0 8px 25px rgba(0, 51, 160, 0.08);
+      transform: translateY(-2px);
       border-color: #0033a0;
-      background: #f0f5ff;
-    }
-    .upload-card.drag-over {
-      border-color: #22c55e;
-      background: #f0fdf4;
     }
     
     .template-item {
@@ -46,15 +43,71 @@
     }
     
     .scroll-templates {
-      max-height: 240px;
+      max-height: 200px;
       overflow-y: auto;
     }
     .scroll-templates::-webkit-scrollbar { width: 4px; }
     .scroll-templates::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 12px; }
     .scroll-templates::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 12px; }
     
+    /* Admin panel - hidden by default, shown via toggle */
+    .admin-panel {
+      display: none;
+      border-top: 2px dashed #cbd5e1;
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .admin-panel.visible {
+      display: block;
+    }
+    
+    .admin-toggle {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .admin-toggle:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+    }
+    .admin-toggle.active {
+      background: #0033a0;
+      color: white;
+      border-color: #0033a0;
+    }
+    
+    .upload-zone {
+      border: 2px dashed #cbd5e1;
+      transition: all 0.2s ease;
+      background: #fafcff;
+    }
+    .upload-zone:hover {
+      border-color: #0033a0;
+      background: #f0f5ff;
+    }
+    
     .fade-in { animation: fadeIn 0.25s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .download-btn {
+      background: #0033a0;
+      color: white;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .download-btn:hover {
+      background: #002680;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -68,26 +121,43 @@
             <i class="fa-solid fa-graduation-cap"></i>
           </div>
           <span class="font-bold text-lg tracking-tight">DepEd HR · Onboarding</span>
-          <span class="hidden sm:inline-block ml-1 bg-yellow-300 text-[0.6rem] font-black text-slate-800 px-2 py-0.5 rounded-full uppercase tracking-wider">Admin</span>
+          <span class="hidden sm:inline-block ml-1 bg-yellow-300 text-[0.6rem] font-black text-slate-800 px-2 py-0.5 rounded-full uppercase tracking-wider">Public Portal</span>
         </div>
         <div class="flex items-center gap-4 text-sm font-medium">
           <a href="#" class="hover:text-yellow-200 transition">Home</a>
           <a href="#onboarding-section" class="hover:text-yellow-200 transition">Onboarding</a>
           <a href="#template-vault" class="hover:text-yellow-200 transition">Templates</a>
+          <!-- Admin toggle - visible to everyone but clearly marked -->
+          <button onclick="toggleAdminPanel()" class="admin-toggle" id="adminToggleBtn">
+            <i class="fa-regular fa-lock mr-1"></i> Admin
+          </button>
         </div>
       </div>
     </div>
   </nav>
 
   <!-- ===== HERO ===== -->
-  <header class="bg-white border-b border-slate-200 py-12 px-4 text-center">
+  <header class="bg-white border-b border-slate-200 py-16 px-4 text-center">
     <div class="max-w-3xl mx-auto">
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
-        🎓 Newly Hired Teacher <span class="text-deped-blue">Onboarding</span>
+      <div class="flex justify-center mb-4">
+        <div class="bg-deped-blue/10 p-4 rounded-full">
+          <i class="fa-solid fa-graduation-cap text-5xl text-deped-blue"></i>
+        </div>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+        🎓 Newly Hired Teacher <br /><span class="text-deped-blue">Onboarding Portal</span>
       </h1>
       <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
-        Everything you need to start your DepEd journey. Upload and manage all required forms in one place.
+        Welcome to the DepEd HR Companion. Access all the forms, checklists, and guides you need to start your teaching journey.
       </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm">
+        <span class="bg-blue-50 text-deped-blue px-4 py-1.5 rounded-full font-medium border border-blue-100"><i class="fa-regular fa-circle-check mr-1"></i> 20+ Templates</span>
+        <span class="bg-green-50 text-green-700 px-4 py-1.5 rounded-full font-medium border border-green-100"><i class="fa-regular fa-file-pdf mr-1"></i> Downloadable Forms</span>
+        <span class="bg-purple-50 text-purple-700 px-4 py-1.5 rounded-full font-medium border border-purple-100"><i class="fa-regular fa-clock mr-1"></i> Updated Regularly</span>
+      </div>
+      <div class="mt-4 text-xs text-slate-400">
+        <i class="fa-regular fa-globe mr-1"></i> Public Access · No Login Required
+      </div>
     </div>
   </header>
 
@@ -129,111 +199,169 @@
       </div>
     </div>
 
-    <!-- ===== TEMPLATE VAULT (with dedicated upload buttons) ===== -->
+    <!-- ===== TEMPLATE VAULT ===== -->
     <section id="template-vault" class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
       <div class="flex items-center gap-3 mb-6">
         <i class="fa-regular fa-folder-open text-2xl text-deped-blue"></i>
         <h2 class="text-xl font-bold text-slate-800">📂 Template Vault</h2>
-        <span class="ml-auto text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full"><i class="fa-regular fa-circle-check mr-1"></i> Upload & manage templates</span>
+        <span class="ml-auto text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">
+          <i class="fa-regular fa-download mr-1"></i> Download any template
+        </span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         <!-- CARD 1: Personal Data Sheet -->
-        <div class="upload-card rounded-xl p-5">
+        <div class="template-card rounded-xl p-5">
           <div class="flex items-center gap-2 mb-3">
             <i class="fa-regular fa-id-card text-xl text-deped-blue"></i>
             <h3 class="font-bold text-slate-800">Personal Data Sheet</h3>
             <span id="pdsCount" class="badge-count ml-auto">0 files</span>
           </div>
           <p class="text-xs text-slate-400 mb-3">CS Form 212 (Revised 2017) · Required for all new hires</p>
-          <div class="flex items-center gap-2">
-            <input type="file" id="pdsUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
-            <button onclick="uploadTemplate('pds')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
-              <i class="fa-solid fa-upload"></i> Upload
-            </button>
-          </div>
-          <div id="pdsTemplates" class="scroll-templates mt-3 space-y-1.5">
+          <div id="pdsTemplates" class="scroll-templates space-y-1.5">
             <!-- dynamic -->
           </div>
         </div>
 
         <!-- CARD 2: Work Experience Sheet -->
-        <div class="upload-card rounded-xl p-5">
+        <div class="template-card rounded-xl p-5">
           <div class="flex items-center gap-2 mb-3">
             <i class="fa-regular fa-briefcase text-xl text-deped-blue"></i>
             <h3 class="font-bold text-slate-800">Work Experience Sheet</h3>
             <span id="wesCount" class="badge-count ml-auto">0 files</span>
           </div>
           <p class="text-xs text-slate-400 mb-3">Attachment to PDS · Detailed work history</p>
-          <div class="flex items-center gap-2">
-            <input type="file" id="wesUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
-            <button onclick="uploadTemplate('wes')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
-              <i class="fa-solid fa-upload"></i> Upload
-            </button>
-          </div>
-          <div id="wesTemplates" class="scroll-templates mt-3 space-y-1.5">
+          <div id="wesTemplates" class="scroll-templates space-y-1.5">
             <!-- dynamic -->
           </div>
         </div>
 
         <!-- CARD 3: Panunumpa (Oath) -->
-        <div class="upload-card rounded-xl p-5">
+        <div class="template-card rounded-xl p-5">
           <div class="flex items-center gap-2 mb-3">
             <i class="fa-regular fa-hand text-xl text-deped-blue"></i>
             <h3 class="font-bold text-slate-800">Panunumpa sa Katungkulan</h3>
             <span id="oathCount" class="badge-count ml-auto">0 files</span>
           </div>
           <p class="text-xs text-slate-400 mb-3">Oath of Office · Signed before authorized official</p>
-          <div class="flex items-center gap-2">
-            <input type="file" id="oathUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
-            <button onclick="uploadTemplate('oath')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
-              <i class="fa-solid fa-upload"></i> Upload
-            </button>
-          </div>
-          <div id="oathTemplates" class="scroll-templates mt-3 space-y-1.5">
+          <div id="oathTemplates" class="scroll-templates space-y-1.5">
             <!-- dynamic -->
           </div>
         </div>
 
         <!-- CARD 4: Checklist & Guides -->
-        <div class="upload-card rounded-xl p-5">
+        <div class="template-card rounded-xl p-5">
           <div class="flex items-center gap-2 mb-3">
             <i class="fa-regular fa-list-check text-xl text-deped-blue"></i>
             <h3 class="font-bold text-slate-800">Checklist &amp; Guides</h3>
             <span id="guideCount" class="badge-count ml-auto">0 files</span>
           </div>
           <p class="text-xs text-slate-400 mb-3">Step-by-step guides, checklists, and reference materials</p>
-          <div class="flex items-center gap-2">
-            <input type="file" id="guideUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
-            <button onclick="uploadTemplate('guide')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition flex items-center gap-1 whitespace-nowrap">
-              <i class="fa-solid fa-upload"></i> Upload
-            </button>
-          </div>
-          <div id="guideTemplates" class="scroll-templates mt-3 space-y-1.5">
+          <div id="guideTemplates" class="scroll-templates space-y-1.5">
             <!-- dynamic -->
           </div>
         </div>
 
       </div>
 
+      <!-- ===== ADMIN PANEL (hidden by default) ===== -->
+      <div id="adminPanel" class="admin-panel">
+        <div class="flex items-center gap-3 mb-4">
+          <i class="fa-solid fa-lock text-deped-blue"></i>
+          <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wider">🔐 Admin Panel — Template Management</h3>
+          <span class="text-xs text-slate-400">(Restricted Access)</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Admin upload for PDS -->
+          <div class="upload-zone rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-regular fa-id-card text-deped-blue"></i>
+              <span class="font-semibold text-sm">Upload PDS</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="file" id="pdsUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+              <button onclick="uploadTemplate('pds')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition">
+                <i class="fa-solid fa-upload"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Admin upload for WES -->
+          <div class="upload-zone rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-regular fa-briefcase text-deped-blue"></i>
+              <span class="font-semibold text-sm">Upload Work Exp.</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="file" id="wesUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+              <button onclick="uploadTemplate('wes')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition">
+                <i class="fa-solid fa-upload"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Admin upload for Oath -->
+          <div class="upload-zone rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-regular fa-hand text-deped-blue"></i>
+              <span class="font-semibold text-sm">Upload Panunumpa</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="file" id="oathUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+              <button onclick="uploadTemplate('oath')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition">
+                <i class="fa-solid fa-upload"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Admin upload for Guides -->
+          <div class="upload-zone rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-regular fa-list-check text-deped-blue"></i>
+              <span class="font-semibold text-sm">Upload Guides</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="file" id="guideUpload" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-deped-blue file:text-white hover:file:bg-blue-800 cursor-pointer flex-1" />
+              <button onclick="uploadTemplate('guide')" class="bg-deped-blue text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-800 transition">
+                <i class="fa-solid fa-upload"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4 text-xs text-slate-400 text-center">
+          <i class="fa-regular fa-circle-info mr-1"></i> Admin panel is hidden from public view by default. Click "Admin" in the nav to access.
+        </div>
+      </div>
+
       <!-- summary -->
       <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-400 flex justify-between items-center">
-        <span><i class="fa-regular fa-circle-info mr-1"></i> All templates are accessible to teachers</span>
-        <span id="totalCount">Total: 0 templates</span>
+        <span><i class="fa-regular fa-download mr-1"></i> Click any <span class="font-semibold text-deped-blue">Download</span> button to get your template</span>
+        <span id="totalCount">Total: 0 templates available</span>
       </div>
     </section>
+
+    <!-- ===== DOWNLOAD INSTRUCTIONS ===== -->
+    <div class="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+      <i class="fa-regular fa-circle-question text-2xl text-deped-blue mb-2 block"></i>
+      <h3 class="font-bold text-slate-800">Need help?</h3>
+      <p class="text-sm text-slate-600 mt-1">
+        All templates are available for download. If you need assistance, contact your Division HR Office.
+      </p>
+    </div>
 
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer class="bg-slate-900 text-slate-300 mt-12 py-6 text-center text-sm border-t border-slate-700">
     <p class="opacity-80">&copy; 2026 DepEd HR Companion · Newly Hired Teacher Onboarding</p>
-    <p class="text-xs text-slate-500 mt-1">Built with ❤️ for every DepEd employee.</p>
+    <p class="text-xs text-slate-500 mt-1">Public Portal · No Login Required</p>
   </footer>
 
   <script>
-    // ===== DATA STORE (per category) =====
+    // ===== DATA STORE =====
     const templateStore = {
       pds: [
         { id: 1, name: "CS_Form_212_PDS_2026.pdf", size: "320 KB" },
@@ -266,15 +394,15 @@
 
       if (items.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-3 text-[10px] text-slate-400 bg-slate-50 rounded-lg border border-dashed">
-            <i class="fa-regular fa-cloud-arrow-up mr-1"></i> No files uploaded yet
+          <div class="text-center py-4 text-[10px] text-slate-400 bg-slate-50 rounded-lg border border-dashed">
+            <i class="fa-regular fa-cloud-arrow-up mr-1"></i> No files available
           </div>
         `;
         return;
       }
 
       container.innerHTML = items.map(t => `
-        <div class="template-item bg-white rounded-lg border border-slate-200 p-2 flex items-center justify-between gap-2">
+        <div class="template-item bg-white rounded-lg border border-slate-200 p-2.5 flex items-center justify-between gap-2">
           <div class="flex items-center gap-2 overflow-hidden flex-1">
             <div class="text-red-500 text-sm flex-shrink-0"><i class="fa-regular fa-file-pdf"></i></div>
             <div class="truncate">
@@ -282,12 +410,9 @@
               <span class="text-[9px] text-slate-400">${t.size}</span>
             </div>
           </div>
-          <div class="flex items-center gap-0.5 flex-shrink-0">
-            <button onclick="downloadFile('${t.name}')" class="text-blue-600 hover:bg-blue-50 p-1 rounded-md text-xs transition" title="Download">
-              <i class="fa-solid fa-download"></i>
-            </button>
-            <button onclick="deleteFile(${t.id}, '${category}')" class="text-slate-400 hover:text-red-500 p-1 rounded-md text-xs transition" title="Remove">
-              <i class="fa-regular fa-trash-can"></i>
+          <div class="flex items-center gap-1 flex-shrink-0">
+            <button onclick="downloadFile('${t.name}')" class="download-btn flex items-center gap-1">
+              <i class="fa-solid fa-download text-[10px]"></i> Download
             </button>
           </div>
         </div>
@@ -296,7 +421,7 @@
       updateTotalCount();
     }
 
-    // ===== UPLOAD FUNCTION =====
+    // ===== UPLOAD (Admin only) =====
     function uploadTemplate(category) {
       const uploadMap = {
         pds: 'pdsUpload',
@@ -335,35 +460,39 @@
       
       const { container, count } = renderMap[category];
       renderCategory(category, container, count);
-
+      
       // Visual feedback
-      const card = input.closest('.upload-card');
-      if (card) {
-        card.style.borderColor = '#22c55e';
-        setTimeout(() => card.style.borderColor = '#e2e8f0', 700);
+      const zone = document.querySelector(`#adminPanel .upload-zone`);
+      if (zone) {
+        zone.style.borderColor = '#22c55e';
+        setTimeout(() => zone.style.borderColor = '#cbd5e1', 700);
       }
     }
 
-    // ===== DELETE FUNCTION =====
-    function deleteFile(id, category) {
-      if (!confirm(`Remove this file from "${getCategoryLabel(category)}"?`)) return;
-      
-      templateStore[category] = templateStore[category].filter(t => t.id !== id);
-      
-      const renderMap = {
-        pds: { container: 'pdsTemplates', count: 'pdsCount' },
-        wes: { container: 'wesTemplates', count: 'wesCount' },
-        oath: { container: 'oathTemplates', count: 'oathCount' },
-        guide: { container: 'guideTemplates', count: 'guideCount' }
-      };
-      
-      const { container, count } = renderMap[category];
-      renderCategory(category, container, count);
+    // ===== DOWNLOAD =====
+    function downloadFile(name) {
+      alert(`⬇️ Downloading: "${name}"\n\n(Simulated download - file would be served from the server in production)`);
     }
 
-    // ===== DOWNLOAD (simulated) =====
-    function downloadFile(name) {
-      alert(`⬇️ Downloading: "${name}" (simulated – file would be served in production)`);
+    // ===== TOGGLE ADMIN PANEL =====
+    function toggleAdminPanel() {
+      const panel = document.getElementById('adminPanel');
+      const btn = document.getElementById('adminToggleBtn');
+      
+      panel.classList.toggle('visible');
+      btn.classList.toggle('active');
+      
+      if (panel.classList.contains('visible')) {
+        btn.innerHTML = '<i class="fa-regular fa-lock-open mr-1"></i> Admin (Active)';
+        btn.style.background = '#0033a0';
+        btn.style.color = 'white';
+        btn.style.borderColor = '#0033a0';
+      } else {
+        btn.innerHTML = '<i class="fa-regular fa-lock mr-1"></i> Admin';
+        btn.style.background = '#f1f5f9';
+        btn.style.color = '#475569';
+        btn.style.borderColor = '#cbd5e1';
+      }
     }
 
     // ===== HELPERS =====
@@ -380,7 +509,7 @@
     function updateTotalCount() {
       const total = Object.values(templateStore).reduce((sum, arr) => sum + arr.length, 0);
       const el = document.getElementById('totalCount');
-      if (el) el.textContent = `Total: ${total} templates`;
+      if (el) el.textContent = `Total: ${total} templates available`;
     }
 
     // ===== INIT =====
